@@ -1,0 +1,25 @@
+{
+  "name": "rationals",
+  "version": "0.0.1",
+  "description": "rational numbers with operations",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ashnur/rationals.git"
+  },
+  "keywords": [
+    "rationals",
+    "rational",
+    "numbers"
+  ],
+  "author": "ashnur",
+  "license": "DAFUQ",
+  "readmeFilename": "README.md",
+  "gitHead": "4b063709112077adf62418576c9d193adc0485c8"
+}
