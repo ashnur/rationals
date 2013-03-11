@@ -19,26 +19,33 @@ var rationals = require('rationals');
 
 # API
 _a & b are objects created with the rationals() function_
-- plus
+
 #### Addition
+- plus
     `a.plus(b)`
-- minus
+
 #### Subtraction
+- minus
     `a.minus(b)`
-- times
+
 #### Multiplication
+- times
     `a.times(b)`
-- per
+
 #### Division
+- per
     `a.per(b)`
-- toString || hashify
+
 #### Examining
+- toString || hashify
     As *rationals* uses ArrayBuffers by default, examining an object can be hard, but if you cast it to a string: `rational(355,113)+''` will return `'355/113'`
-- display
+
 #### Display
+- display
     Just like hashify, but the numerator will be shown only if it's not 1. That is, integers will appear without a slash and a denominator.
-- val
+
 #### Approximation
+- val
     Will return the numerator divided with the denominator.
 
 # Install
