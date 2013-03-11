@@ -1,5 +1,5 @@
 # rationals
-__a small library providing rational number types for javascript__
+_a small library providing rational number types for javascript_
 
 There are many reasons why rational numbers are the best, I will list two
 
@@ -18,27 +18,27 @@ var rationals = require('rationals');
 ```
 
 # API
-__ a & b are objects created with the rationals() function __
+_a & b are objects created with the rationals() function_
 - plus
-    #### Addition
+#### Addition
     `a.plus(b)`
 - minus
-    #### Subtraction
+#### Subtraction
     `a.minus(b)`
 - times
-    #### Multiplication
+#### Multiplication
     `a.times(b)`
 - per
-    #### Division
+#### Division
     `a.per(b)`
 - toString || hashify
-    #### Examining
+#### Examining
     As *rationals* uses ArrayBuffers by default, examining an object can be hard, but if you cast it to a string: `rational(355,113)+''` will return `'355/113'`
 - display
-    #### Display
+#### Display
     Just like hashify, but the numerator will be shown only if it's not 1. That is, integers will appear without a slash and a denominator.
 - val
-    #### Approximation
+#### Approximation
     Will return the numerator divided with the denominator.
 
 # Install
@@ -46,7 +46,7 @@ __ a & b are objects created with the rationals() function __
 npm install rationals
 ```
 
-*You can use it with browserify in the browser*
+**You can use it with browserify in the browser**
 To be honest, you can use it without browserify too, it's just a module,
 but does not uses any kind of external libraries or modules.
 But browserify is awesome, so use it.
