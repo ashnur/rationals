@@ -13,7 +13,18 @@ This is especially useful if you plan to plot values on a graph.
 
 # Examples
 ```
-var rationals = require('rationals');
+var r = require('rationals');
+
+r(1,1) === r(1) // true
+
+r(2,4) === r(13,26) // true
+
+r(100,50) === r(2) // true
+
+r(1,2).plus(r(1,3)).minus(r(1,4)).times(r(1,5)).per(r(1,6)) === r(49,70)
+
+r(355,113).val()  // 3.1415929203539825
+
 
 ```
 
@@ -63,5 +74,4 @@ npm install rationals
 **You can use it with browserify in the browser**
 To be honest, you can use it without browserify too, it's just a module,
 but does not uses any kind of external libraries or modules.
-But browserify is awesome, so use it.
-
+but browserify is awesome, so use it.
