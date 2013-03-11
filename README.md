@@ -22,30 +22,37 @@ _a & b are objects created with the rationals() function_
 
 #### Addition
 - plus
+
     `a.plus(b)`
 
 #### Subtraction
 - minus
+
     `a.minus(b)`
 
 #### Multiplication
 - times
+
     `a.times(b)`
 
 #### Division
 - per
+
     `a.per(b)`
 
 #### Examining
 - toString || hashify
+
     As *rationals* uses ArrayBuffers by default, examining an object can be hard, but if you cast it to a string: `rational(355,113)+''` will return `'355/113'`
 
 #### Display
 - display
+
     Just like hashify, but the numerator will be shown only if it's not 1. That is, integers will appear without a slash and a denominator.
 
 #### Approximation
 - val
+
     Will return the numerator divided with the denominator.
 
 # Install
