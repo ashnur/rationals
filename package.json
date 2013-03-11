@@ -1,6 +1,6 @@
 {
   "name": "rationals",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "rational numbers with operations",
   "main": "index.js",
   "directories": {
