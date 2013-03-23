@@ -29,7 +29,7 @@
   "devDependencies":{
       "mocha":"*",
       "expect.js":"*"
-  }
+  },
   "author": "ashnur",
   "license": "DAFUQ",
   "readmeFilename": "README.md",
