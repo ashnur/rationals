@@ -26,6 +26,10 @@
     "harness" : "mocha",
     "files": "test/*.js"
   },
+  "devDependencies":{
+      "mocha":"*",
+      "expect.js":"*"
+  }
   "author": "ashnur",
   "license": "DAFUQ",
   "readmeFilename": "README.md",
