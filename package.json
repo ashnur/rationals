@@ -3,9 +3,6 @@
   "version": "0.0.4",
   "description": "rational numbers with operations",
   "main": "index.js",
-  "directories": {
-    "test": "test"
-  },
   "scripts": {
     "test": "mocha"
   },
@@ -32,6 +29,5 @@
   },
   "author": "ashnur",
   "license": "DAFUQ",
-  "readmeFilename": "README.md",
-  "gitHead": "4b063709112077adf62418576c9d193adc0485c8"
+  "readmeFilename": "README.md"
 }
