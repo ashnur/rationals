@@ -1,13 +1,12 @@
 describe("rats", function() {
-    var rats;
-    rats = require('../')
-    expect = require('expect.js')
+    var rats = require('../')
+        , expect = require('expect.js')
+        ;
     it("should be a function", function() {
             expect(rats).to.be.a('function')
     })
     it("should construct a new number object, based on input", function() {
-        var one;
-        one = rats(1)
+        var one = rats(1);
         if (typeof one !== 'object') {
             throw new Error('unexpected construct: ' + typeof one)
         } else if (one.val() !== 1) {
@@ -36,7 +35,7 @@ describe("rats", function() {
             x = rats(3, 10)
             y = rats(3, 14)
             third = rats(1, 3)
-            describe('innings', function(){
+            describe('elementary operations', function(){
                 it('should have a `plus` method', function() {
                     if (typeof one.plus !== 'function') {
                         throw new Error('number obj is corrupted, method plus is: ' + typeof one.plus)
@@ -60,9 +59,7 @@ describe("rats", function() {
             })
             describe('plus', function() {
                 return it('should add two numbers', function() {
-                    var control, result;
-                    debugger
-                    result = one.plus(two)
+                    var control = '18/35', result = one.plus(two);
                     if (result !== three) {
                         throw new Error('method plus is broken, 1+2 != ' + three)
                     }
@@ -71,7 +68,6 @@ describe("rats", function() {
                         throw new Error('method plus is broken, 1+(-1) != ' + zero)
                     }
                     result = x.plus(y)
-                    control = '18/35'
 
                     if (result.toString() !== control) {
                         throw new Error('method plus is broken, (3/10)-(3/14) != ' + control + '(' + result + ')')
@@ -80,8 +76,7 @@ describe("rats", function() {
             })
             describe('minus', function() {
                 return it('should negate two numbers', function() {
-                    var control, result;
-                    result = one.minus(two)
+                    var control = '3/35', result= one.minus(two)
                     if (result !== negone) {
                         throw new Error('method minus is broken, 1-2 != ' + negone)
                     }
@@ -90,7 +85,6 @@ describe("rats", function() {
                         throw new Error('method minus is broken, 1-(-1) != ' + two)
                     }
                     result = x.minus(y)
-                    control = '3/35'
                     if (result.toString() !== control) {
                         throw new Error('method minus is broken, (3/10)+(3/14) != ' + control)
                     }
@@ -98,8 +92,7 @@ describe("rats", function() {
             })
             describe('times', function() {
                 return it('should multiply two numbers', function() {
-                    var control, result;
-                    result = five.times(six)
+                    var control = '9/140', result = five.times(six)
                     if (result !== thirty) {
                         throw new Error('method times is broken, 5*6 != ' + thirty)
                     }
@@ -108,7 +101,6 @@ describe("rats", function() {
                         throw new Error('method times is broken, 1*(-1) != ' + negone)
                     }
                     result = x.times(y)
-                    control = '9/140'
                     if (result.toString() !== control) {
                         throw new Error('method times is broken, (3/10)*(3/14) != ' + control)
                     }
@@ -116,26 +108,21 @@ describe("rats", function() {
             })
             describe('per', function() {
                 it('should divide two numbers', function() {
-                    var control, result;
-                    result = five.per(ten)
+                    var control = '7/5', result = five.per(ten)
                     if (result.toString() !== '1/2') {
                         throw new Error('method per is broken, 5/10 != 1/2')
                     }
-                    debugger
                     result = one.per(negone)
                     if (result !== negone) {
                         throw new Error('method per is broken, 1/(-1) != ' + negone)
                     }
                     result = x.per(y)
-                    control = '7/5'
                     if (result.toString() !== control) {
                         throw new Error('method per is broken, (3/10)/(3/14) != ' + control)
                     }
                 })
                 return it('should subtract rat from nat', function() {
-                    var control, result;
-                    result = two.minus(third)
-                    control = '5/3'
+                    var control = '5/3', result = two.minus(third)
                     if (result.toString() !== control) {
                         throw new Error('method per is broken, 2-1/3 != ' + control + '(' + result + ')')
                     }
