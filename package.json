@@ -1,6 +1,6 @@
 {
   "name": "rationals",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "rational numbers with operations",
   "main": "index.js",
   "directories": {
@@ -18,6 +18,14 @@
     "rational",
     "numbers"
   ],
+  "testling": {
+    "browsers": [
+        "ie6", "ie7", "ie8", "ie9", "ie10",
+        "firefox/18", "firefox/nightly", "chrome/24", "chrome/canary", "opera/12", "safari/5.1"
+    ],
+    "harness" : "mocha",
+    "files": "test/*.js"
+  },
   "author": "ashnur",
   "license": "DAFUQ",
   "readmeFilename": "README.md",
