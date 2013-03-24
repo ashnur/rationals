@@ -1,7 +1,7 @@
 {
   "name": "rationals",
   "description": "rational numbers with operations",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "main": "lib/rat.js",
   "scripts": {
     "test": "mocha",
@@ -18,6 +18,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/ashnur/rationals.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ashnur/rationals/issues"
   },
   "testling": {
     "files": "test/*.js",
