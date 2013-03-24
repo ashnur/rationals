@@ -1,45 +1,48 @@
 {
   "name": "rationals",
-  "version": "0.0.5",
   "description": "rational numbers with operations",
-  "main": "index.js",
+  "version": "0.0.5",
+  "main": "lib/rat.js",
   "scripts": {
-    "test": "mocha"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/ashnur/rationals.git"
-  },
-  "keywords": [
-    "rationals",
-    "rational",
-    "numbers"
-  ],
-  "testling": {
-    "browsers": [
-      "ie6",
-      "ie7",
-      "ie8",
-      "ie9",
-      "ie10",
-      "firefox/18",
-      "firefox/nightly",
-      "chrome/25",
-      "chrome/canary",
-      "opera/12",
-      "safari/5.1"
-    ],
-    "harness": "mocha",
-    "files": "test/*.js"
+    "test": "mocha",
+    "prepublish": "npm test"
   },
   "dependencies": {
-    "totemizer": "*",
+    "totemizer": "~0.0.2",
     "boo": "~1.2.4"
   },
   "devDependencies": {
     "mocha": "*",
     "expect.js": "*"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ashnur/rationals.git"
+  },
+  "testling": {
+    "files": "test/*.js",
+    "browsers": [
+      "iexplore/6.0",
+      "iexplore/7.0",
+      "iexplore/8.0",
+      "iexplore/9.0",
+      "iexplore/10.0",
+      "chrome/4.0",
+      "chrome/23.0",
+      "firefox/3.0",
+      "firefox/17.0",
+      "opera/10.0",
+      "opera/12.0",
+      "safari/5.0.5",
+      "safari/5.1"
+    ],
+    "harness": "mocha"
+  },
+  "keywords": [
+    "rationals",
+    "rational",
+    "numbers"
+  ],
   "author": "ashnur",
   "license": "DAFUQ",
   "readmeFilename": "README.md"
