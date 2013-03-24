@@ -1,7 +1,7 @@
 {
   "name": "rationals",
   "description": "rational numbers with operations",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "lib/rat.js",
   "scripts": {
     "test": "mocha",

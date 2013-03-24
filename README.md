@@ -13,7 +13,8 @@ This is especially useful if you plan to plot values on a graph.
 I've got the inspiration for this lib from here: [MF105: The extended rational numbers in practice](http://www.youtube.com/watch?v=YMQkLojL2ek)
 
 # Support
-[![browser support](http://ci.testling.com/ashnur/rationals.png)](http://ci.testling.com/ashnur/rationals)
+[![browser support](https://ci.testling.com/ashnur/rationals.png)](https://ci.testling.com/ashnur/rationals)
+
 
 
 
