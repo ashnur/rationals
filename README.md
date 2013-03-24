@@ -21,41 +21,46 @@ I've got the inspiration for this lib from here: [MF105: The extended rational n
 ```
 var r = require('rationals');
 
+r(1) === r(1); // true, denominator of 1 is optional
+
 r(1,1) === r(1); // true
 
-r(2,4) === r(13,26); // true
+r(2,4) === r(13,26); // true, all rationals will be always reduced
 
 r(100,50) === r(2); // true
 
-r(1,2).plus(r(1,3)).minus(r(1,4)).times(r(1,5)).per(r(1,6)) === r(49,70); // true
+r(1,2).plus(r(1,3)).minus(r(1,4)).times(r(1,5)).per(r(1,6)) === r(49,70); // true, chaining works
 
-r(355,113).val(); // 3.1415929203539825
+r(355,113).val(); // 3.1415929203539825, my personal favorite aproximation of Pi, from ancient china
 
 
 ```
 
 # API
-_a & b are objects created with the rationals() function_
+- _a & b are objects created with the rationals() function_
+( I deleted the internal checks for this, so you should make sure to construct the numbers yourself)
+- in the parentheses you have some common aliases for the functions
+
 
 #### Addition
-- plus
+- add (plus)
 
-    `a.plus(b)`
+    `a.add(b)`
 
 #### Subtraction
-- minus
+- subtract (minus, sub)
 
-    `a.minus(b)`
+    `a.sub(b)`
 
 #### Multiplication
-- times
+- multiply (times, mul)
 
-    `a.times(b)`
+    `a.mul(b)`
 
 #### Division
-- per
+- divide (per, div)
 
-    `a.per(b)`
+    `a.div(b)`
 
 #### Examining
 - toString
@@ -78,12 +83,15 @@ _a & b are objects created with the rationals() function_
 
     `r(355,113).val(); //3.1415929203539825`
 
+# Good to know
+If you provide anything else as the numerator, than a whole number in base 10 an exception will be thrown.
+On the other hand, if you do the same with the denominator, it will be cast to 1. This is because
+I am lazy, and I do not want to handle wrong values and undefined values differently throwing for the former
+and casting to 1 for the latter.
+
 # Install
 ```
 npm install rationals
 ```
 
-**You can use it with [browserify](http://browserify.org/) in the browser**
-To be honest, you can use it without browserify too, this it's just a module,
-and it does not uses any kind of external libraries or other modules.
-But browserify is awesome, so use it.
+**You can use it in the browser with [browserify](http://browserify.org/)**

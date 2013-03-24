@@ -2,9 +2,9 @@ describe("rats", function() {
     var rats = require('../')
         , expect = require('expect.js')
         ;
-    it("should be a function", function() {
-            expect(rats).to.be.a('function')
-    })
+
+    it("should be a function", function() { expect(rats).to.be.a('function') })
+
     it("should construct a new number object, based on input", function() {
         var one = rats(1);
         if (typeof one !== 'object') {
@@ -57,81 +57,36 @@ describe("rats", function() {
                     }
                 })
             })
-            describe('plus', function() {
-                return it('should add two numbers', function() {
-                    var control = '18/35', result = one.plus(two);
-                    if (result !== three) {
-                        throw new Error('method plus is broken, 1+2 != ' + three)
-                    }
-                    result = one.plus(negone)
-                    if (result !== zero) {
-                        throw new Error('method plus is broken, 1+(-1) != ' + zero)
-                    }
-                    result = x.plus(y)
-
-                    if (result.toString() !== control) {
-                        throw new Error('method plus is broken, (3/10)-(3/14) != ' + control + '(' + result + ')')
-                    }
+            describe('elementary arithmetic', function() {
+                it('should add two numbers', function() {
+                    expect(one.plus(two)).to.be(three)
+                    expect(one.plus(negone)).to.be(zero)
+                    expect(x.plus(y)+'').to.be('18/35')
                 })
-            })
-            describe('minus', function() {
-                return it('should negate two numbers', function() {
-                    var control = '3/35', result= one.minus(two)
-                    if (result !== negone) {
-                        throw new Error('method minus is broken, 1-2 != ' + negone)
-                    }
-                    result = one.minus(negone)
-                    if (result !== two) {
-                        throw new Error('method minus is broken, 1-(-1) != ' + two)
-                    }
-                    result = x.minus(y)
-                    if (result.toString() !== control) {
-                        throw new Error('method minus is broken, (3/10)+(3/14) != ' + control)
-                    }
+                it('should negate two numbers', function() {
+                    expect(one.minus(two)).to.be(negone)
+                    expect(one.minus(negone)).to.be(two)
+                    expect(x.minus(y)+'').to.be('3/35')
                 })
-            })
-            describe('times', function() {
-                return it('should multiply two numbers', function() {
-                    var control = '9/140', result = five.times(six)
-                    if (result !== thirty) {
-                        throw new Error('method times is broken, 5*6 != ' + thirty)
-                    }
-                    result = one.times(negone)
-                    if (result !== negone) {
-                        throw new Error('method times is broken, 1*(-1) != ' + negone)
-                    }
-                    result = x.times(y)
-                    if (result.toString() !== control) {
-                        throw new Error('method times is broken, (3/10)*(3/14) != ' + control)
-                    }
+                it('should multiply two numbers', function() {
+                    expect(five.times(six)).to.be(thirty)
+                    expect(one.times(negone)).to.be(negone)
+                    expect(x.times(y)+'').to.be('9/140')
                 })
-            })
-            describe('per', function() {
                 it('should divide two numbers', function() {
-                    var control = '7/5', result = five.per(ten)
-                    if (result.toString() !== '1/2') {
-                        throw new Error('method per is broken, 5/10 != 1/2')
-                    }
-                    result = one.per(negone)
-                    if (result !== negone) {
-                        throw new Error('method per is broken, 1/(-1) != ' + negone)
-                    }
-                    result = x.per(y)
-                    if (result.toString() !== control) {
-                        throw new Error('method per is broken, (3/10)/(3/14) != ' + control)
-                    }
+                    expect(five.per(ten)+'').to.be('1/2')
+                    expect(one.per(negone)).to.be(negone)
+                    expect(x.per(y)+'').to.be('7/5')
                 })
-                return it('should subtract rat from nat', function() {
-                    var control = '5/3', result = two.minus(third)
-                    if (result.toString() !== control) {
-                        throw new Error('method per is broken, 2-1/3 != ' + control + '(' + result + ')')
-                    }
+                it('should subtract rat from nat', function() {
+                    expect(two.minus(third)+'').to.be('5/3')
                 })
             })
             describe('operations on inf too', function() {
                 var inf = rats(1,0)
                     , origo = rats(0,0)
                     ;
+
 
                 it('addition', function(){
                     test( inf, x, inf.plus, inf, 'adding to ∞ is flawed')
