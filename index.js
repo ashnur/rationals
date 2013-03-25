@@ -9,7 +9,7 @@ void function(root){
         ;
 
 
-    function checkInput(input){ return input instanceof rational ? input : rat(input) }
+    function checkInput(input){ return input instanceof rational.init ? input : rat(input) }
 
     function gcd(a, b){
         var t;
