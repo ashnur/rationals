@@ -9,6 +9,7 @@ describe("rats", function() {
     it("should construct a new number object, based on input", function() {
         expect(rats(1)).to.be.an('object')
         expect(rats(1).val()).to.be(1)
+        expect(rats.checkInput(rats(1))).to.be(rats(1))
     })
 
 })

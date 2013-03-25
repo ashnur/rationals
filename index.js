@@ -9,7 +9,7 @@ void function(root){
         ;
 
 
-    function checkInput(input){ return input instanceof rational.init ? input : rat(input) }
+    function checkInput(input){ return (input && input.init ===  rational.init) ? input : rat(input) }
 
     function gcd(a, b){
         var t;
@@ -39,7 +39,7 @@ void function(root){
 
     function divide(x, y){ return rat(x[0]*y[1], y[0]*x[1]) }
 
-    rational = boo.Base.derive(Array, {
+    rational = boo.Base.derive({
         init : function(numerator, denominator){
             this[0] = numerator
             this[1] = denominator
@@ -113,6 +113,10 @@ void function(root){
     rat.checkInput = checkInput
     rat.gcd = gcd
     rat.lcm = lcm
+    rat.add = add
+    rat.div = divide
+    rat.sub = subtract
+    rat.mul = multiply
 
     if ( typeof module !== 'undefined' && module.exports ) {
         module.exports = rat

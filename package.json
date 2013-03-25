@@ -1,14 +1,14 @@
 {
   "name": "rationals",
   "description": "rational numbers with operations",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "main": "lib/rat.js",
   "scripts": {
     "test": "mocha",
     "prepublish": "npm test"
   },
   "dependencies": {
-    "totemizer": "~0.0.2",
+    "totemizer": "0.0.4",
     "boo": "~1.2.4"
   },
   "devDependencies": {
@@ -42,8 +42,12 @@
     "harness": "mocha"
   },
   "keywords": [
+    "rational numberss",
     "rationals",
-    "rational",
+    "rational arithmetic",
+    "dividing with zero",
+    "infinity",
+    "origo",
     "numbers"
   ],
   "author": "ashnur",
