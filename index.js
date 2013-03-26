@@ -111,8 +111,8 @@ void function(root){
     }
 
     rat.checkInput = checkInput
-    rat.gcd = gcd
-    rat.lcm = lcm
+    rat.gcd = function(a, b){ return r(gcd(a[0],b[0]), lcm(a[1],b[1])) }
+    rat.lcm = function(a, b){ return r(lcm(a[0],b[0]), gcd(a[1],b[1])) }
     rat.add = add
     rat.div = divide
     rat.sub = subtract

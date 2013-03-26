@@ -1,7 +1,7 @@
 {
   "name": "rationals",
   "description": "rational numbers with operations",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "main": "index.js",
   "scripts": {
     "test": "mocha",
