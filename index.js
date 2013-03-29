@@ -6,7 +6,7 @@ void function(root){
         , boo = require('boo')
         , rational
         , apply = u.liberate(Function.prototype.apply)
-        , big = require('./javascript-biginteger/biginteger.js').BigInteger
+        , big = require('biginteger').BigInteger
         ;
 
 
