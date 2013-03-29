@@ -6,6 +6,7 @@ void function(root){
         , boo = require('boo')
         , rational
         , apply = u.liberate(Function.prototype.apply)
+        , big = require('./javascript-biginteger/biginteger.js').BigInteger
         ;
 
 
@@ -13,31 +14,31 @@ void function(root){
 
     function gcd(a, b){
         var t;
-        a = Math.abs(a)
-        b = Math.abs(b)
-        while (b > 0) {
+        a = a.abs()
+        b = b.abs()
+        while (b.isPositive()) {
             t = b
-            b = a % b
+            b = a.remainder(b)
             a = t
         }
         return a
     }
 
-    function lcm(a, b){ return Math.abs(a*b)/gcd(a,b) }
+    function lcm(a, b){ return (a.multiply(b)).abs().divide(gcd(a,b)) }
 
     function hashify(r){ return r[0]+'/'+r[1] }
 
     function display(r){ return ''+r[0]+(r[1]!=1?'/'+r[1]:'') }
 
-    function val(r){ return r[0]/r[1] }
+    function val(r){ return r[0].toJSValue()/r[1].toJSValue() }
 
-    function add(x, y){ return rat(x[0]*y[1]+y[0]*x[1], x[1]*y[1]) }
+    function add(x, y){ return rat(x[0].multiply(y[1]).add(y[0].multiply(x[1])), x[1].multiply(y[1])) }
 
-    function subtract(x, y){ return rat(x[0]*y[1]-y[0]*x[1], x[1]*y[1]) }
+    function subtract(x, y){ return rat(x[0].multiply(y[1]).subtract(y[0].multiply(x[1])), x[1].multiply(y[1])) }
 
-    function multiply(x, y){ return rat(x[0]*y[0], x[1]*y[1]) }
+    function multiply(x, y){ return rat(x[0].multiply(y[0]), x[1].multiply(y[1])) }
 
-    function divide(x, y){ return rat(x[0]*y[1], y[0]*x[1]) }
+    function divide(x, y){ return rat(x[0].multiply(y[1]), x[1].multiply(y[0])) }
 
     rational = boo.Base.derive({
         init : function(numerator, denominator){
@@ -72,31 +73,31 @@ void function(root){
 
         if ( ! u.isInt(numerator) ) {
             throw new Error('invalid argument '+numerator+' ('+(typeof numerator)+')')
-        } else if ( typeof numerator === 'string' ) {
-            numerator = Number(numerator)
+        } else {
+            numerator = big(numerator)
         }
 
         if ( ! u.isInt(denominator) ) {
-            denominator = 1
-        } else if ( typeof denominator === 'string' ) {
-            denominator = Number(denominator)
+            denominator = big.ONE
+        } else {
+            denominator = big(denominator)
         }
 
-        if ( denominator === 0 ) {
+        if ( denominator.isZero() ) {
 
-            if ( numerator !== 0 ) numerator = 1
+            if ( ! numerator.isZero() ) numerator = big.ONE
 
         } else {
 
             divisor = gcd(numerator, denominator)
-            if ( Math.abs(divisor) > 1 ) {
-                numerator = numerator / divisor
-                denominator = denominator / divisor
+            if ( ! divisor.isUnit()  ) {
+                numerator = numerator.divide(divisor)
+                denominator = denominator.divide(divisor)
             }
 
-            if ( denominator < 0 ) {
-                numerator *= -1
-                denominator *= -1
+            if ( denominator.isNegative() ) {
+                numerator = numerator.negate()
+                denominator = denominator.negate()
             }
         }
 

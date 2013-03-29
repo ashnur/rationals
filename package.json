@@ -9,7 +9,8 @@
   },
   "dependencies": {
     "totemizer": "0.0.4",
-    "boo": "~1.2.4"
+    "boo": "~1.2.4",
+    "big-number": "~0.2.5"
   },
   "devDependencies": {
     "mocha": "*",
