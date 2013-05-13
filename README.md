@@ -44,22 +44,22 @@ r(355,113).val(); // 3.1415929203539825, my personal favorite aproximation of Pi
 
 
 #### Addition
-- add (plus)
+- add _(plus)_
 
     `a.add(b)`
 
 #### Subtraction
-- subtract (minus, sub)
+- subtract _(minus, sub)_
 
     `a.sub(b)`
 
 #### Multiplication
-- multiply (times, mul)
+- multiply _(times, mul)_
 
     `a.mul(b)`
 
 #### Division
-- divide (per, div)
+- divide _(per, div)_
 
     `a.div(b)`
 
@@ -68,17 +68,17 @@ r(355,113).val(); // 3.1415929203539825, my personal favorite aproximation of Pi
 
     Examining an object can be hard, but if you cast it to a string: `r(355,113)+''` will return `'355/113'`.
 
-    So will `r(625/125).toString()` return `'5/1'`.
+    So will `r(625,125).toString()` return `'5/1'`.
 
 #### Display
 - display
 
     Just like toString(), but the numerator will be shown only if it's not 1. That is, integers will appear without a slash and a denominator.
 
-    `r(625/125).display()` returns `'5'`.
+    `r(625,125).display()` returns `'5'`.
 
 #### Approximation
-- val
+- val _(value)_
 
     Will return the numerator divided with the denominator.
 
