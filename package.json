@@ -1,7 +1,7 @@
 {
   "name": "rationals",
   "description": "rational numbers with operations",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "main": "index.js",
   "scripts": {
     "test": "mocha",
@@ -9,8 +9,8 @@
   },
   "dependencies": {
     "totemizer": "0.0.4",
-    "boo": "~1.2.4",
-    "biginteger": "~1.0.1"
+    "biginteger": "~1.0.1",
+    "viral": "0.0.4"
   },
   "devDependencies": {
     "mocha": "*",

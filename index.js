@@ -3,7 +3,7 @@ void function(root){
 
     var numbers = {}
         , u = require('totemizer')
-        , boo = require('boo')
+        , viral = require('viral')
         , rational
         , apply = u.liberate(Function.prototype.apply)
         , big = require('biginteger').BigInteger
@@ -40,7 +40,7 @@ void function(root){
 
     function divide(x, y){ return rat(x[0].multiply(y[1]), x[1].multiply(y[0])) }
 
-    rational = boo.Base.derive({
+    rational = viral.extend({
         init : function(numerator, denominator){
             this[0] = numerator
             this[1] = denominator
