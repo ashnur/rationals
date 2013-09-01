@@ -22,25 +22,28 @@ I've got the inspiration for this lib from here: [MF105: The extended rational n
 ```
 var r = require('rationals');
 
-r(1) === r(1); // true, denominator of 1 is optional
+// denominator of 1 is optional
+r(1) === r(1); // true
 
 r(1,1) === r(1); // true
 
-r(2,4) === r(13,26); // true, all rationals will be always reduced
+// all rationals will be always reduced
+r(2,4) === r(13,26); // true
 
 r(100,50) === r(2); // true
 
-r(1,2).plus(r(1,3)).minus(r(1,4)).times(r(1,5)).per(r(1,6)) === r(49,70); // true, chaining works
+// chaining works
+r(1,2).plus(r(1,3)).minus(r(1,4)).times(r(1,5)).per(r(1,6)) === r(49,70); // true
 
-r(355,113).val(); // 3.1415929203539825, my personal favorite aproximation of Pi, from ancient china
+// my personal favorite aproximation of Pi, from ancient china
+r(355,113).val(); // 3.1415929203539825
 
 
 ```
 
 # API
 - _a & b are objects created with the rationals() function_
-( I deleted the internal checks for this, so you should make sure to construct the numbers yourself)
-- in the parentheses you have some common aliases for the functions
+- in the parentheses you have some common aliases for the methods
 
 
 #### Addition
@@ -68,12 +71,13 @@ r(355,113).val(); // 3.1415929203539825, my personal favorite aproximation of Pi
 
     Examining an object can be hard, but if you cast it to a string: `r(355,113)+''` will return `'355/113'`.
 
-    So will `r(625,125).toString()` return `'5/1'`.
+    So `r(625,125).toString()` will return `'5/1'`.
 
 #### Display
 - display
 
-    Just like toString(), but the numerator will be shown only if it's not 1. That is, integers will appear without a slash and a denominator.
+    Just like toString(), but the numerator will be shown only if it's not 1.
+    That is, integers will appear without a slash symbol and a denominator.
 
     `r(625,125).display()` returns `'5'`.
 

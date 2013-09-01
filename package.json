@@ -1,16 +1,16 @@
 {
   "name": "rationals",
   "description": "rational numbers with operations",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "main": "index.js",
   "scripts": {
     "test": "mocha",
     "prepublish": "npm test"
   },
   "dependencies": {
-    "totemizer": "0.0.4",
+    "totemizer": "~0.0.4",
     "biginteger": "~1.0.1",
-    "viral": "0.0.4"
+    "viral": "~0.0.4"
   },
   "devDependencies": {
     "mocha": "*",
