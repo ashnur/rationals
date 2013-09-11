@@ -28,6 +28,13 @@ y = rats(3, 14)
 third = rats(1, 3)
 
 
+describe('common usage', function(){
+    it('recognizes decimal numbers, converts them into fractions', function(){
+        expect(rats(0.5)).to.be(rats(1,2))
+        expect(rats(0.33)).to.be(rats(33,100))
+        expect(rats(0.4,0.1)).to.be(rats(4))
+    })
+})
 describe('elementary arithmetic', function() {
     it('addition', function() {
         expect(one.plus(two)).to.be(three)
@@ -109,5 +116,6 @@ describe('operations with infinity and the origo → ', function() {
     it('divides origo', function(){
         expect(origo.div(x)).to.be(origo)
     })
+
 
 })

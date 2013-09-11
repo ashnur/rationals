@@ -38,6 +38,8 @@ r(1,2).plus(r(1,3)).minus(r(1,4)).times(r(1,5)).per(r(1,6)) === r(49,70); // tru
 // my personal favorite aproximation of Pi, from ancient china
 r(355,113).val(); // 3.1415929203539825
 
+// you can give floats and they will be converted into rationals
+rats(0.4,0.1) == rats(4);
 
 ```
 
@@ -89,7 +91,7 @@ r(355,113).val(); // 3.1415929203539825
     `r(355,113).val(); //3.1415929203539825`
 
 # Good to know
-If you provide anything else as the numerator, than a whole number in base 10 an exception will be thrown.
+If you provide anything else as the numerator, than an integer, float or a numerica string an exception will be thrown.
 On the other hand, if you do the same with the denominator, it will be cast to 1. This is because
 I am lazy, and I do not want to handle wrong values and undefined values differently throwing for the former
 and casting to 1 for the latter.

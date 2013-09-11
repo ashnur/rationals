@@ -67,20 +67,42 @@ void function(root){
 
     })
 
+
     function rat(numerator, denominator){
 
-        var index, divisor;
+        var index, divisor, dendecimals = 0, numdecimals = 0
 
-        if ( ! u.isInt(numerator) ) {
+        if ( typeof numerator != 'number' && typeof numerator != 'string'
+                && (! u.isInt(numerator)) ) {
             throw new Error('invalid argument '+numerator+' ('+(typeof numerator)+')')
-        } else {
-            numerator = big(numerator)
+        }
+        if ( typeof denominator != 'number' && typeof denominator != 'string'
+                && (! u.isInt(denominator)) ) {
+            denominator = 1
+        }
+        debugger;
+        numerator = numerator+''
+        denominator = denominator+''
+
+        if ( numerator.indexOf('.') > -1 ) {
+            numdecimals = Math.pow(10, numerator.length - numerator.indexOf('.') - 1)
+            numerator = numerator.split('.').join('')
         }
 
-        if ( ! u.isInt(denominator) ) {
-            denominator = big.ONE
-        } else {
-            denominator = big(denominator)
+        if ( denominator.indexOf('.') > -1 ) {
+            dendecimals = Math.pow(10, denominator.length - denominator.indexOf('.') - 1)
+            denominator = denominator.split('.').join('')
+        }
+
+        denominator = big.parse(denominator)
+        numerator = big.parse(numerator)
+
+        if ( dendecimals > 0 ) {
+            numerator = numerator.multiply(dendecimals)
+        }
+
+        if ( numdecimals > 0 ) {
+            denominator = denominator.multiply(numdecimals)
         }
 
         if ( denominator.isZero() ) {
