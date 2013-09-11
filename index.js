@@ -80,7 +80,6 @@ void function(root){
                 && (! u.isInt(denominator)) ) {
             denominator = 1
         }
-        debugger;
         numerator = numerator+''
         denominator = denominator+''
 
