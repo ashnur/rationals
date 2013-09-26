@@ -24,6 +24,10 @@ void function(root){
         return a
     }
 
+    function compare(a, b){ return a[0].multiply(b[1]).compare(a[1].multiply(b[0])) }
+
+    function compareAbs(a, b){ return a[0].multiply(b[1]).compareAbs(a[1].multiply(b[0])) }
+
     function lcm(a, b){ return (a.multiply(b)).abs().divide(gcd(a,b)) }
 
     function hashify(r){ return r[0]+'/'+r[1] }
@@ -64,6 +68,9 @@ void function(root){
         , divide : u.enslave(divide)
         , per : u.enslave(divide)
         , div: u.enslave(divide)
+
+        , compare : u.enslave(compare)
+        , compareAbs : u.enslave(compareAbs)
 
     })
 

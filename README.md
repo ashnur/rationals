@@ -90,6 +90,22 @@ rats(0.4,0.1) == rats(4);
 
     `r(355,113).val(); //3.1415929203539825`
 
+#### Ordering
+- compare _(value)_
+
+    Will return -1, 0 or 1 if the rational is smaller, equal or larger than the rational it is compared to
+
+    `r(-999,605).compare(R(272,835)) // -1`
+    `r(-966,743).compare(R(-632,198)) // 1`
+    `r(-3,9).compare(R(12,-36)) // 0`
+
+#### Compare absolute values
+- compareAbs _(value)_
+
+    Same as compare but without signs.
+
+    `r(-999,605).compareAbs(R(272,835)) // 1`
+
 # Good to know
 If you provide anything else as the numerator, than an integer, float or a numerica string an exception will be thrown.
 On the other hand, if you do the same with the denominator, it will be cast to 1. This is because
