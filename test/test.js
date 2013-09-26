@@ -57,6 +57,13 @@ describe('elementary arithmetic', function() {
         expect(one.per(negone)).to.be(negone)
         expect(x.per(y)+'').to.be('7/5')
     })
+    it('large number calculations', function(){
+        var x = rats(1123875)
+        var y = rats(1238750184)
+        var z = rats(1657134)
+        var r = rats(77344464613500, 92063)
+        expect(x.times(y).per(z)).to.be(r)
+    })
 
 })
 
