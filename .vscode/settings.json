@@ -1,2 +1,3 @@
 {
+  typescript.tsdk: "/home/ashnur/repos/own/os/rationals/node_modules/typescript/lib"
 }

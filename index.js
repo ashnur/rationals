@@ -1,156 +1,96 @@
-void function(root){
-    "use strict"
+const abs = (n) => (n > 0 ? n : -n)
+const checkInput = (input) => (input && input.init === rational.init ? input : rat(input))
+const gcd = (a, b) => {
+  let t = 0
+  let tb = abs(b)
+  let ta = abs(a)
+  while (tb > 0) {
+    t = tb
+    tb = ta % tb
+    ta = t
+  }
+  return ta
+}
 
-    var numbers = {}
-        , u = require('totemizer')
-        , viral = require('viral')
-        , rational
-        , apply = u.liberate(Function.prototype.apply)
-        , big = require('biginteger').BigInteger
-        ;
+const numbers = {}
 
+const compare = (a, b) => a[0] * b[1] - a[1] * b[0]
 
-    function checkInput(input){ return (input && input.init ===  rational.init) ? input : rat(input) }
+const compareAbs = (a, b) => compare(abs(a), abs(b))
+const lcm = (a, b) => abs(a * b) / gcd(a, b)
+const hashify = (r) => r[0] + '/' + r[1]
+const display = (r) => '' + r[0] + (r[1] != 1 ? '/' + r[1] : '')
+const val = (r) => {
+  return BigInt(r[0]) / BigInt(r[1])
+}
+const add = (x, y) => rat(x[0] * y[1] + y[0] * x[1], x[1] * y[1])
+const subtract = (x, y) => rat(x[0] * y[1] - y[0] * x[1], x[1] * y[1])
+const multiply = (x, y) => rat(x[0] * y[0], x[1] * y[1])
+const divide = (x, y) => rat(x[0] * y[1], x[1] * y[0])
 
-    function gcd(a, b){
-        var t;
-        a = a.abs()
-        b = b.abs()
-        while (b.isPositive()) {
-            t = b
-            b = a.remainder(b)
-            a = t
-        }
-        return a
+const tie = function(fn) {
+  return function(y) {
+    return fn(this, y)
+  }
+}
+// function Collection(...args) {
+//   Object.setPrototypeOf(args, Collection.prototype)
+//   return args
+// }
+function Rational(numerator = 0n, denominator = 1n) {
+  this[0] = numerator
+  this[1] = denominator
+  Object.freeze(this)
+  return this
+}
+Rational.prototype.constructor = Rational
+Rational.prototype = Object.create(Array.prototype)
+Rational.prototype.val = tie(val)
+
+function rat(numerator = 0n, denominator = 1n) {
+  if (typeof numerator != 'bigint') {
+    throw new Error('invalid argument ' + numerator + ' (' + typeof numerator + ')')
+  }
+
+  if (typeof numerator != 'bigint' && typeof numerator != 'string' && !/^(\+|-)?[123456789]\d+$/.test(numerator)) {
+    denominator = 1n
+  }
+
+  if (denominator === 0n) {
+    if (numerator !== 0n) numerator = 1n
+  } else {
+    let divisor = gcd(numerator, denominator)
+    if (divisor !== 1n && divisor !== -1n) {
+      numerator = numerator / divisor
+      denominator = denominator / divisor
     }
 
-    function compare(a, b){ return a[0].multiply(b[1]).compare(a[1].multiply(b[0])) }
-
-    function compareAbs(a, b){ return a[0].multiply(b[1]).compareAbs(a[1].multiply(b[0])) }
-
-    function lcm(a, b){ return (a.multiply(b)).abs().divide(gcd(a,b)) }
-
-    function hashify(r){ return r[0]+'/'+r[1] }
-
-    function display(r){ return ''+r[0]+(r[1]!=1?'/'+r[1]:'') }
-
-    function val(r){ return r[0].toJSValue()/r[1].toJSValue() }
-
-    function add(x, y){ return rat(x[0].multiply(y[1]).add(y[0].multiply(x[1])), x[1].multiply(y[1])) }
-
-    function subtract(x, y){ return rat(x[0].multiply(y[1]).subtract(y[0].multiply(x[1])), x[1].multiply(y[1])) }
-
-    function multiply(x, y){ return rat(x[0].multiply(y[0]), x[1].multiply(y[1])) }
-
-    function divide(x, y){ return rat(x[0].multiply(y[1]), x[1].multiply(y[0])) }
-
-    rational = viral.extend({
-        init : function(numerator, denominator){
-            this[0] = numerator
-            this[1] = denominator
-        }
-        , toString : u.enslave(hashify)
-        , display : u.enslave(display)
-
-        , val : u.enslave(val)
-
-        , add : u.enslave(add)
-        , plus : u.enslave(add)
-
-        , subtract : u.enslave(subtract)
-        , minus : u.enslave(subtract)
-        , sub: u.enslave(subtract)
-
-        , multiply : u.enslave(multiply)
-        , times : u.enslave(multiply)
-        , mul: u.enslave(multiply)
-
-        , divide : u.enslave(divide)
-        , per : u.enslave(divide)
-        , div: u.enslave(divide)
-
-        , compare : u.enslave(compare)
-        , compareAbs : u.enslave(compareAbs)
-
-    })
-
-
-    function rat(numerator, denominator){
-
-        var index, divisor, dendecimals = 0, numdecimals = 0
-
-        if ( typeof numerator != 'number' && typeof numerator != 'string'
-                && (! u.isInt(numerator)) ) {
-            throw new Error('invalid argument '+numerator+' ('+(typeof numerator)+')')
-        }
-        if ( typeof denominator != 'number' && typeof denominator != 'string'
-                && (! u.isInt(denominator)) ) {
-            denominator = 1
-        }
-        numerator = numerator+''
-        denominator = denominator+''
-
-        if ( numerator.indexOf('.') > -1 ) {
-            numdecimals = Math.pow(10, numerator.length - numerator.indexOf('.') - 1)
-            numerator = numerator.split('.').join('')
-        }
-
-        if ( denominator.indexOf('.') > -1 ) {
-            dendecimals = Math.pow(10, denominator.length - denominator.indexOf('.') - 1)
-            denominator = denominator.split('.').join('')
-        }
-
-        denominator = big.parse(denominator)
-        numerator = big.parse(numerator)
-
-        if ( dendecimals > 0 ) {
-            numerator = numerator.multiply(dendecimals)
-        }
-
-        if ( numdecimals > 0 ) {
-            denominator = denominator.multiply(numdecimals)
-        }
-
-        if ( denominator.isZero() ) {
-
-            if ( ! numerator.isZero() ) numerator = big.ONE
-
-        } else {
-
-            divisor = gcd(numerator, denominator)
-            if ( ! divisor.isUnit()  ) {
-                numerator = numerator.divide(divisor)
-                denominator = denominator.divide(divisor)
-            }
-
-            if ( denominator.isNegative() ) {
-                numerator = numerator.negate()
-                denominator = denominator.negate()
-            }
-        }
-
-        index = hashify([numerator, denominator])
-
-        if ( numbers[index] === undefined ) {
-            numbers[index] = rational.make(numerator, denominator)
-        }
-
-        return numbers[index]
-
+    if (denominator < 0) {
+      numerator = -numerator
+      denominator = -denominator
     }
+  }
 
-    rat.checkInput = checkInput
-    rat.gcd = function(a, b){ return rat(gcd(a[0],b[0]), lcm(a[1],b[1])) }
-    rat.lcm = function(a, b){ return rat(lcm(a[0],b[0]), gcd(a[1],b[1])) }
-    rat.add = add
-    rat.div = divide
-    rat.sub = subtract
-    rat.mul = multiply
+  index = hashify([numerator, denominator])
 
-    if ( typeof module !== 'undefined' && module.exports ) {
-        module.exports = rat
-    } else {
-        root.factory = rat
-    }
+  if (numbers[index] === undefined) {
+    numbers[index] = new Rational(numerator, denominator)
+  }
 
-}(this)
+  return numbers[index]
+}
+
+rat.gcd = function(a, b) {
+  return rat(gcd(a[0], b[0]), lcm(a[1], b[1]))
+}
+rat.lcm = function(a, b) {
+  return rat(lcm(a[0], b[0]), gcd(a[1], b[1]))
+}
+
+rat.add = add
+rat.div = divide
+rat.sub = subtract
+rat.mul = multiply
+rat.Rational = Rational
+
+module.exports = rat
