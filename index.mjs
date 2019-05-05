@@ -12,45 +12,44 @@ const gcd = (a, b) => {
   return ta
 }
 
+const ExtendedRational = Object.create(Array.prototype)
+ExtendedRational.toString = function() {
+  return this[0] + '/' + this[1]
+}
 const numbers = {}
+const hashify = ([n, d]) => `${n}/${d}`
 
-const compare = (a, b) => a[0] * b[1] - a[1] * b[0]
+const val = ([n, d]) => {
+  return BigInt(n) / BigInt(d)
+}
+ExtendedRational.val = function() {
+  return val(this)
+}
+const zero = rat(0n)
+const one = rat(1n)
+const infinity = rat(1n, 0n)
+const origo = rat(0n, 0n)
 
+const compare = ([a, b], [c, d]) => (a || b) && (c || d) && a * d == b * c
 const compareAbs = (a, b) => compare(abs(a), abs(b))
 const lcm = (a, b) => abs(a * b) / gcd(a, b)
-const hashify = (r) => r[0] + '/' + r[1]
-const display = (r) => '' + r[0] + (r[1] != 1 ? '/' + r[1] : '')
-const val = (r) => {
-  return BigInt(r[0]) / BigInt(r[1])
-}
-const add = (x, y) => rat(x[0] * y[1] + y[0] * x[1], x[1] * y[1])
-const subtract = (x, y) => rat(x[0] * y[1] - y[0] * x[1], x[1] * y[1])
-const multiply = (x, y) => rat(x[0] * y[0], x[1] * y[1])
-const divide = (x, y) => rat(x[0] * y[1], x[1] * y[0])
+const display = ([n, d]) => `${n}${d !== 1 ? '/' + d : ''}`
+const add = ([a, b], [c, d]) => rat(a * d + b * c, b * d)
+const subtract = ([a, b], [c, d]) => rat(a * d - b * c, b * d)
+const multiply = ([a, b], [c, d]) => rat(a * c, b * d)
+const divide = ([a, b], [c, d]) => rat(a * d, b * c)
+const scalarMultiply = (c, [n, d]) => rat(c * n, c * d)
+const height = ([n, d]) => d
 
-const tie = function(fn) {
-  return function(y) {
-    return fn(this, y)
-  }
-}
-// function Collection(...args) {
-//   Object.setPrototypeOf(args, Collection.prototype)
-//   return args
-// }
 function Rational(numerator = 0n, denominator = 1n) {
-  this[0] = numerator
-  this[1] = denominator
-  this.toString = () => numerator + '/' + denominator
-  Object.freeze(this)
-  return this
+  const arr = [numerator, denominator]
+  Object.setPrototypeOf(arr, ExtendedRational)
+  return Object.freeze(arr)
 }
-Rational.prototype.constructor = Rational
-Rational.prototype = Object.create(Array.prototype)
-Rational.prototype.val = tie(val)
 
 function rat(numerator = 0n, denominator = 1n) {
   if (typeof numerator != 'bigint') {
-    throw new Error('invalid argument ' + numerator + ' (' + typeof numerator + ')')
+    throw new Error('invalid argument for numerator: ' + numerator + ' (' + typeof numerator + ')')
   }
 
   if (typeof numerator != 'bigint' && typeof numerator != 'string' && !/^(\+|-)?[123456789]\d+$/.test(numerator)) {
@@ -75,7 +74,7 @@ function rat(numerator = 0n, denominator = 1n) {
   let index = hashify([numerator, denominator])
 
   if (numbers[index] === undefined) {
-    numbers[index] = new Rational(numerator, denominator)
+    numbers[index] = Rational(numerator, denominator)
   }
 
   return numbers[index]
@@ -92,6 +91,8 @@ rat.add = add
 rat.div = divide
 rat.sub = subtract
 rat.mul = multiply
+rat.scale = scalarMultiply
+rat.height = height
 rat.Rational = Rational
 
 export default rat
@@ -119,4 +120,15 @@ export function fromNumber(n, d = 1) {
   // console.log('->', n, numerator, d, denominator, common_precision)
 
   return rat(BigInt(numerator), BigInt(denominator))
+}
+
+export function fromString(n, d = 1) {
+  if (typeof n !== 'string') {
+    throw new Error('invalid (non-string) input (note the name of the function please)')
+  }
+  if (d != null && typeof d !== 'string') {
+    throw new Error('invalid (non-string) input (note the name of the function please)')
+  }
+
+  return rat(BigInt(n), BigInt(d))
 }
