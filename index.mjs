@@ -40,6 +40,7 @@ const tie = function(fn) {
 function Rational(numerator = 0n, denominator = 1n) {
   this[0] = numerator
   this[1] = denominator
+  this.toString = () => numerator + '/' + denominator
   Object.freeze(this)
   return this
 }
@@ -71,7 +72,7 @@ function rat(numerator = 0n, denominator = 1n) {
     }
   }
 
-  index = hashify([numerator, denominator])
+  let index = hashify([numerator, denominator])
 
   if (numbers[index] === undefined) {
     numbers[index] = new Rational(numerator, denominator)
@@ -93,4 +94,29 @@ rat.sub = subtract
 rat.mul = multiply
 rat.Rational = Rational
 
-module.exports = rat
+export default rat
+
+const findDecimalSize = (x) => {
+  let p = 0
+  while (x * Math.pow(10, p) != Math.round(x * Math.pow(10, p))) p++
+  return p
+}
+
+export function fromNumber(n, d = 1) {
+  if (typeof n !== 'number' || isNaN(n)) {
+    throw new Error('invalid (non-number) input (note the name of the function please)')
+  }
+  if ((d != null && typeof d !== 'number') || isNaN(d)) {
+    throw new Error('invalid (non-number) input (note the name of the function please)')
+  }
+
+  const denominator_precision = findDecimalSize(d)
+  const numerator_precision = findDecimalSize(n)
+  const common_precision = 10 ** Math.max(denominator_precision, numerator_precision)
+
+  const numerator = n * common_precision
+  const denominator = d * common_precision
+  // console.log('->', n, numerator, d, denominator, common_precision)
+
+  return rat(BigInt(numerator), BigInt(denominator))
+}
