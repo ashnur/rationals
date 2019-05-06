@@ -1,10 +1,23 @@
-const abs = (n) => (n > 0 ? n : -n)
-const checkInput = (input) => (input && input.init === rational.init ? input : rat(input))
+const cmp = (a, b) => (a === b ? 0 : a < b ? -1 : 1)
+const rcmp = (x, y) => {
+  const [a, b] = x
+  const [c, d] = y
+  let m = b * d
+  let s = m && m < 0 ? -1 : 1
+  if (m === 0 || b === d) {
+    return s * (a > c ? 1 : a < c ? -1 : 0)
+  }
+  let aa = a * d
+  let cc = c * b
+  return s * (aa > cc ? 1 : aa < cc ? -1 : 0)
+}
+const abs = (n) => (n < 0n ? -n : n)
+const rabs = (n) => (rcmp(n, rat(0n)) > -1 ? n : rat(-n[0], n[1]))
 const gcd = (a, b) => {
-  let t = 0
+  let t = 0n
   let tb = abs(b)
   let ta = abs(a)
-  while (tb > 0) {
+  while (tb > 0n) {
     t = tb
     tb = ta % tb
     ta = t
@@ -30,10 +43,13 @@ const one = rat(1n)
 const infinity = rat(1n, 0n)
 const origo = rat(0n, 0n)
 
-const compare = ([a, b], [c, d]) => (a || b) && (c || d) && a * d == b * c
-const compareAbs = (a, b) => compare(abs(a), abs(b))
-const lcm = (a, b) => abs(a * b) / gcd(a, b)
 const display = ([n, d]) => `${n}${d !== 1 ? '/' + d : ''}`
+const lcm = (a, b) => abs(a * b) / gcd(a, b)
+const equal = ([a, b], [c, d]) => (a || b) && (c || d) && a * d == b * c
+
+const compareAbs = (a, b) => {
+  return rcmp(rabs(a), rabs(b))
+}
 const add = ([a, b], [c, d]) => rat(a * d + b * c, b * d)
 const subtract = ([a, b], [c, d]) => rat(a * d - b * c, b * d)
 const multiply = ([a, b], [c, d]) => rat(a * c, b * d)
@@ -80,11 +96,11 @@ function rat(numerator = 0n, denominator = 1n) {
   return numbers[index]
 }
 
-rat.gcd = function(a, b) {
-  return rat(gcd(a[0], b[0]), lcm(a[1], b[1]))
+rat.rgcd = function([a, b], [c, d]) {
+  return rat(gcd(a, c), lcm(b, d))
 }
-rat.lcm = function(a, b) {
-  return rat(lcm(a[0], b[0]), gcd(a[1], b[1]))
+rat.lcm = function([a, b], [c, d]) {
+  return rat(lcm(a, c), gcd(b, d))
 }
 
 rat.add = add
@@ -93,6 +109,8 @@ rat.sub = subtract
 rat.mul = multiply
 rat.scale = scalarMultiply
 rat.height = height
+rat.compare = rcmp
+rat.compareAbs = compareAbs
 rat.Rational = Rational
 
 export default rat
@@ -117,7 +135,6 @@ export function fromNumber(n, d = 1) {
 
   const numerator = n * common_precision
   const denominator = d * common_precision
-  // console.log('->', n, numerator, d, denominator, common_precision)
 
   return rat(BigInt(numerator), BigInt(denominator))
 }

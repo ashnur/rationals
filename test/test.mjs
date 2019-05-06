@@ -6,7 +6,7 @@ const R = rat
 
 const numRunsL = 500
 const numRunsH = 50000
-const numRuns = numRunsL
+const numRuns = numRunsH
 
 test('R', function(t) {
   // t.ok(new R(1n) instanceof R.ExtendedRational, 'Is a Rational')
@@ -175,124 +175,156 @@ test('elementary arithmetic', function(t) {
       { numRuns: numRuns },
     )
   })
-  // t.doesNotThrow(function() {
-  //   fc.assert(
-  //     fc.property(r, r, r, function(x, y, z) {
-  //       return rat.sub(rat.sub(x, y), z) === rat.sub(rat.sub(z, y), x)
-  //     }),
-  //     { numRuns: numRuns },
-  //   )
-  // })
-
-  // test('multiplication', function() {
-  //   t.equal(five.times(six),thirty)
-  //   t.equal(one.times(negone),negone)
-  //   t.equal(x.times(y) + '','9/140')
-  // })
-  // test('division', function() {
-  //   t.equal(five.per(ten) + '','1/2')
-  //   t.equal(one.per(negone),negone)
-  //   t.equal(x.per(y) + '','7/5')
-  // })
-  // test('large number calculations', function() {
-  //   var x = R(1123875)
-  //   var y = R(1238750184)
-  //   var z = R(1657134)
-  //   var r = R(77344464613500, 92063)
-  //   t.equal(x.times(y).per(z),r)
-  // })
   t.end()
 })
 
 const inf = R(1n, 0n)
 const origo = R(0n, 0n)
+const INF = fc.constant(inf)
+const ORIGO = fc.constant(origo)
+const nfoz = r.filter((x) => x !== origo && x !== inf && x !== zero)
 
-// test('operations with infinity and the origo → ', function() {
-test('adds to ∞', function(t) {
+test('adds ', function(t) {
   t.equal(rat.add(inf, x), inf)
-  t.end()
-})
-test('adds ∞', function(t) {
   t.equal(rat.add(x, inf), inf)
-  t.end()
-})
-test('adds to origo', function(t) {
   t.equal(rat.add(x, origo), origo)
-  t.end()
-})
-test('adds origo', function(t) {
   t.equal(rat.add(origo, x), origo)
+  t.doesNotThrow(function() {
+    fc.assert(fc.property(nfoz, INF, (x, inf) => rat.add(inf, x) === inf), { numRuns })
+    fc.assert(fc.property(nfoz, INF, (x, inf) => rat.add(x, inf) === inf), { numRuns })
+    fc.assert(fc.property(nfoz, ORIGO, (x, origo) => rat.add(x, origo) === origo), { numRuns })
+    fc.assert(fc.property(nfoz, ORIGO, (x, origo) => rat.add(origo, x) === origo), { numRuns })
+  })
   t.end()
 })
 
-test('subtracts from ∞', function(t) {
+test('subtracts ', function(t) {
   t.equal(rat.sub(inf, x), inf)
-  t.end()
-})
-test('subtracts ∞', function(t) {
   t.equal(rat.sub(x, inf), inf)
-  t.end()
-})
-test('subtracts from origo', function(t) {
   t.equal(rat.sub(x, origo), origo)
-  t.end()
-})
-test('subtracts origo', function(t) {
   t.equal(rat.sub(origo, x), origo)
+  t.doesNotThrow(function() {
+    fc.assert(fc.property(nfoz, INF, (x, inf) => rat.sub(inf, x) === inf), { numRuns })
+    fc.assert(fc.property(nfoz, INF, (x, inf) => rat.sub(x, inf) === inf), { numRuns })
+    fc.assert(fc.property(nfoz, ORIGO, (x, origo) => rat.sub(x, origo) === origo), { numRuns })
+    fc.assert(fc.property(nfoz, ORIGO, (x, origo) => rat.sub(origo, x) === origo), { numRuns })
+  })
   t.end()
 })
 
-test('multiplies with ∞', function(t) {
+test('multiplies ', function(t) {
   t.equal(rat.mul(inf, x), inf)
-  t.end()
-})
-test('multiplies ∞', function(t) {
   t.equal(rat.mul(x, inf), inf)
-  t.end()
-})
-test('multiplies with origo', function(t) {
   t.equal(rat.mul(x, origo), origo)
-  t.end()
-})
-test('multiplies origo', function(t) {
   t.equal(rat.mul(origo, x), origo)
+  // t.doesNotThrow(function() {
+  //   fc.assert(fc.property(nfoz, INF, (x, inf) => rat.mul(inf, x) === inf), { numRuns })
+  //   fc.assert(fc.property(nfoz, INF, (x, inf) => rat.mul(x, inf) === inf), { numRuns })
+  //   fc.assert(fc.property(nfoz, ORIGO, (x, origo) => rat.mul(x, origo) === origo), { numRuns })
+  //   fc.assert(fc.property(nfoz, ORIGO, (x, origo) => rat.mul(origo, x) === origo), { numRuns })
+  // })
   t.end()
 })
 
-test('divides with ∞', function(t) {
+test('divides ', function(t) {
   t.equal(rat.div(inf, x), inf)
-  t.end()
-})
-test('divides ∞', function(t) {
   t.equal(rat.div(x, inf), zero)
-  t.end()
-})
-test('divides with origo', function(t) {
   t.equal(rat.div(x, origo), origo)
-  t.end()
-})
-test('divides origo', function(t) {
   t.equal(rat.div(origo, x), origo)
   t.end()
 })
 
 test('compare rational numbers', function(t) {
   // test('returns -1, 0 or 1 if a is smaller, equal or larger than b', function() {
-  // t.equal(R(-999, 605).compare(R(272, 835)),-1)
-  // t.equal(R(-966, 743).compare(R(-632, 198)),1)
-  // t.equal(R(-3, 9).compare(R(12, -36)),0)
-  // t.equal(R(742, -185).compare(R(319, -830)),-1)
-  // t.equal(R(-999, 605).compareAbs(R(272, 835)),1)
+  t.equal(rat.compare(R(-999n, 605n), R(272n, 835n)), -1)
+  t.equal(rat.compare(R(-966n, 743n), R(-632n, 198n)), 1)
+  t.equal(rat.compare(R(-3n, 9n), R(12n, -36n)), 0)
+  t.equal(rat.compare(R(742n, -185n), R(319n, -830n)), -1)
+  t.equal(rat.compareAbs(R(-999n, 605n), R(272n, 835n)), 1)
   // })
   t.end()
 })
 
 // Distributivity
+test('multiplicity', function(t) {
+  t.doesNotThrow(function() {
+    fc.assert(
+      fc.property(r, r, r, function(x, y, z) {
+        return rat.mul(rat.mul(x, y), z) === rat.mul(x, rat.mul(y, z))
+      }),
+      { numRuns: numRuns },
+    )
+  })
+  t.doesNotThrow(function() {
+    fc.assert(
+      fc.property(r, r, r, function(x, y, z) {
+        return rat.scale(rat.height(x), rat.mul(x, rat.add(y, z))) === rat.add(rat.mul(x, y), rat.mul(x, z))
+      }),
+      { numRuns: numRuns },
+    )
+  })
+  t.doesNotThrow(function() {
+    fc.assert(
+      fc.property(r, r, r, function(x, y, z) {
+        return rat.scale(rat.height(z), rat.mul(rat.add(x, y), z)) === rat.add(rat.mul(x, z), rat.mul(y, z))
+      }),
+      { numRuns: numRuns },
+    )
+  })
+  t.end()
+})
+//assoc
+test('multiplicity assoc', function(t) {
+  t.doesNotThrow(function() {
+    fc.assert(
+      fc.property(r, r, r, function(x, y, z) {
+        return rat.mul(x, rat.div(y, z)) === rat.div(rat.mul(x, y), z)
+      }),
+      { numRuns: numRuns },
+    )
+  })
+  t.doesNotThrow(function() {
+    fc.assert(
+      fc.property(r, r, r, function(x, y, z) {
+        return rat.div(x, rat.div(y, z)) === rat.mul(rat.div(x, y), z)
+      }),
+      { numRuns: numRuns },
+    )
+  })
+  t.doesNotThrow(function() {
+    fc.assert(
+      fc.property(r, r, r, function(x, y, z) {
+        return rat.div(x, rat.mul(y, z)) === rat.div(rat.div(x, y), z)
+      }),
+      { numRuns: numRuns },
+    )
+  })
+  t.end()
+})
+
 // t.doesNotThrow(function() {
 //   fc.assert(
 //     fc.property(r, r, r, function(x, y, z) {
-//       return rat.height(x) *
+//       return rat.sub(rat.sub(x, y), z) === rat.sub(rat.sub(z, y), x)
 //     }),
 //     { numRuns: numRuns },
 //   )
+// })
+
+// test('multiplication', function() {
+//   t.equal(five.times(six),thirty)
+//   t.equal(one.times(negone),negone)
+//   t.equal(x.times(y) + '','9/140')
+// })
+// test('division', function() {
+//   t.equal(five.per(ten) + '','1/2')
+//   t.equal(one.per(negone),negone)
+//   t.equal(x.per(y) + '','7/5')
+// })
+// test('large number calculations', function() {
+//   var x = R(1123875)
+//   var y = R(1238750184)
+//   var z = R(1657134)
+//   var r = R(77344464613500, 92063)
+//   t.equal(x.times(y).per(z),r)
 // })

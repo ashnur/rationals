@@ -5,7 +5,7 @@
   "main": "index.mjs",
   "type": "module",
   "scripts": {
-    "dev": "nodemon -x \"node --experimental-modules ./test/test.mjs\"",
+    "dev": "nodemon -x \"node --experimental-modules --max_old_space_size=8192 ./test/test.mjs\"",
     "test": "tape ./test/test.js"
   },
   "dependencies": {},
