@@ -10,11 +10,11 @@ const numRuns = numRunsL
 
 test('R', function(t) {
   // t.ok(new R(1n) instanceof R.ExtendedRational, 'Is a Rational')
-  t.equal(R(1n).val(), 1n, 'value returns JS Number value')
+  t.equal(R(1n).val(), 1, 'value returns JS Number value')
   t.doesNotThrow(function() {
     fc.assert(
       fc.property(fc.integer(), (n) => {
-        return BigInt(n) === R.Rational(BigInt(n)).val()
+        return Number(n) === R(BigInt(n)).val()
       }),
     )
   }, 'should construct a new number object, based on input')

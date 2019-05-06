@@ -125,10 +125,10 @@ const findDecimalSize = (x) => {
 
 export function fromNumber(n, d = 1) {
   if (typeof n !== 'number' || isNaN(n)) {
-    throw new Error('invalid (non-number) input (note the name of the function please)')
+    throw new Error('invalid (non-number) numerator (note the name of the function please)' + typeof n)
   }
   if ((d != null && typeof d !== 'number') || isNaN(d)) {
-    throw new Error('invalid (non-number) input (note the name of the function please)')
+    throw new Error('invalid (non-number) denominator (note the name of the function please)' + typeof d)
   }
 
   const denominator_precision = findDecimalSize(d)
@@ -143,10 +143,10 @@ export function fromNumber(n, d = 1) {
 
 export function fromString(n, d = 1) {
   if (typeof n !== 'string') {
-    throw new Error('invalid (non-string) input (note the name of the function please)')
+    throw new Error('invalid (non-string) numerator (note the name of the function please)' + typeof n)
   }
   if (d != null && typeof d !== 'string') {
-    throw new Error('invalid (non-string) input (note the name of the function please)')
+    throw new Error('invalid (non-string) denominator (note the name of the function please)')
   }
 
   return rat(BigInt(n), BigInt(d))
