@@ -33,7 +33,7 @@ const numbers = {}
 const hashify = ([n, d]) => `${n}/${d}`
 
 const val = ([n, d]) => {
-  return BigInt(n) / BigInt(d)
+  return Number(n) / Number(d)
 }
 ExtendedRational.val = function() {
   return val(this)
@@ -56,6 +56,7 @@ const multiply = ([a, b], [c, d]) => rat(a * c, b * d)
 const divide = ([a, b], [c, d]) => rat(a * d, b * c)
 const scalarMultiply = (c, [n, d]) => rat(c * n, c * d)
 const height = ([n, d]) => d
+const width = ([n, d]) => n
 
 function Rational(numerator = 0n, denominator = 1n) {
   const arr = [numerator, denominator]
@@ -109,6 +110,7 @@ rat.sub = subtract
 rat.mul = multiply
 rat.scale = scalarMultiply
 rat.height = height
+rat.width = width
 rat.compare = rcmp
 rat.compareAbs = compareAbs
 rat.Rational = Rational

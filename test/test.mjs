@@ -6,7 +6,7 @@ const R = rat
 
 const numRunsL = 500
 const numRunsH = 50000
-const numRuns = numRunsH
+const numRuns = numRunsL
 
 test('R', function(t) {
   // t.ok(new R(1n) instanceof R.ExtendedRational, 'Is a Rational')
@@ -217,12 +217,12 @@ test('multiplies ', function(t) {
   t.equal(rat.mul(x, inf), inf)
   t.equal(rat.mul(x, origo), origo)
   t.equal(rat.mul(origo, x), origo)
-  // t.doesNotThrow(function() {
-  //   fc.assert(fc.property(nfoz, INF, (x, inf) => rat.mul(inf, x) === inf), { numRuns })
-  //   fc.assert(fc.property(nfoz, INF, (x, inf) => rat.mul(x, inf) === inf), { numRuns })
-  //   fc.assert(fc.property(nfoz, ORIGO, (x, origo) => rat.mul(x, origo) === origo), { numRuns })
-  //   fc.assert(fc.property(nfoz, ORIGO, (x, origo) => rat.mul(origo, x) === origo), { numRuns })
-  // })
+  t.doesNotThrow(function() {
+    fc.assert(fc.property(nfoz, INF, (x, inf) => rat.mul(inf, x) === inf), { numRuns })
+    fc.assert(fc.property(nfoz, INF, (x, inf) => rat.mul(x, inf) === inf), { numRuns })
+    fc.assert(fc.property(nfoz, ORIGO, (x, origo) => rat.mul(x, origo) === origo), { numRuns })
+    fc.assert(fc.property(nfoz, ORIGO, (x, origo) => rat.mul(origo, x) === origo), { numRuns })
+  })
   t.end()
 })
 
@@ -245,8 +245,7 @@ test('compare rational numbers', function(t) {
   t.end()
 })
 
-// Distributivity
-test('multiplicity', function(t) {
+test('Distributivity', function(t) {
   t.doesNotThrow(function() {
     fc.assert(
       fc.property(r, r, r, function(x, y, z) {
@@ -274,7 +273,7 @@ test('multiplicity', function(t) {
   t.end()
 })
 //assoc
-test('multiplicity assoc', function(t) {
+test('associative laws', function(t) {
   t.doesNotThrow(function() {
     fc.assert(
       fc.property(r, r, r, function(x, y, z) {
@@ -302,29 +301,58 @@ test('multiplicity assoc', function(t) {
   t.end()
 })
 
-// t.doesNotThrow(function() {
-//   fc.assert(
-//     fc.property(r, r, r, function(x, y, z) {
-//       return rat.sub(rat.sub(x, y), z) === rat.sub(rat.sub(z, y), x)
-//     }),
-//     { numRuns: numRuns },
-//   )
-// })
-
-// test('multiplication', function() {
-//   t.equal(five.times(six),thirty)
-//   t.equal(one.times(negone),negone)
-//   t.equal(x.times(y) + '','9/140')
-// })
-// test('division', function() {
-//   t.equal(five.per(ten) + '','1/2')
-//   t.equal(one.per(negone),negone)
-//   t.equal(x.per(y) + '','7/5')
-// })
-// test('large number calculations', function() {
-//   var x = R(1123875)
-//   var y = R(1238750184)
-//   var z = R(1657134)
-//   var r = R(77344464613500, 92063)
-//   t.equal(x.times(y).per(z),r)
-// })
+test('more distributive laws', function(t) {
+  t.doesNotThrow(function() {
+    fc.assert(
+      fc.property(r, r, r, function(x, y, z) {
+        return rat.scale(rat.height(x), rat.mul(x, rat.sub(y, z))) === rat.sub(rat.mul(x, y), rat.mul(x, z))
+      }),
+      { numRuns: numRuns },
+    )
+  })
+  t.doesNotThrow(function() {
+    fc.assert(
+      fc.property(r, r, r, function(x, y, z) {
+        return rat.scale(rat.height(z), rat.mul(rat.sub(x, y), z)) === rat.sub(rat.mul(x, z), rat.mul(y, z))
+      }),
+      { numRuns: numRuns },
+    )
+  })
+  t.doesNotThrow(function() {
+    fc.assert(
+      fc.property(r, r, r, function(x, y, z) {
+        return rat.scale(rat.width(z), rat.div(rat.add(x, y), z)) === rat.add(rat.div(x, z), rat.div(y, z))
+      }),
+      { numRuns: numRuns },
+    )
+  })
+  t.doesNotThrow(function() {
+    fc.assert(
+      fc.property(r, r, r, function(x, y, z) {
+        return rat.scale(rat.width(z), rat.div(rat.sub(x, y), z)) === rat.sub(rat.div(x, z), rat.div(y, z))
+      }),
+      { numRuns: numRuns },
+    )
+  })
+  t.end()
+})
+test('simple multiplication', function(t) {
+  t.equal(rat.mul(five, six), thirty)
+  t.equal(rat.mul(one, negone), negone)
+  t.equal(rat.mul(x, y) + '', '9/140')
+  t.end()
+})
+test('simple division', function(t) {
+  t.equal(rat.div(five, ten) + '', '1/2')
+  t.equal(rat.div(one, negone), negone)
+  t.equal(rat.div(x, y) + '', '7/5')
+  t.end()
+})
+test('large number calculations', function(t) {
+  var x = R(1123875n)
+  var y = R(1238750184n)
+  var z = R(1657134n)
+  var r = R(77344464613500n, 92063n)
+  t.equal(rat.div(rat.mul(x, y), z), r)
+  t.end()
+})

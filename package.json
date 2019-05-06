@@ -1,12 +1,12 @@
 {
   "name": "rationals",
   "description": "rational numbers with operations",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "main": "index.mjs",
   "type": "module",
   "scripts": {
     "dev": "nodemon -x \"node --experimental-modules --max_old_space_size=8192 ./test/test.mjs\"",
-    "test": "tape ./test/test.js"
+    "test": "node --experimental-modules --max_old_space_size=8192  ./test/test.mjs"
   },
   "dependencies": {},
   "devDependencies": {
