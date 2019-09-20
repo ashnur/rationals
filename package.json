@@ -2,11 +2,11 @@
   "name": "rationals",
   "description": "rational numbers with operations",
   "version": "0.2.3-0",
-  "main": "index.mjs",
+  "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon -x \"node --experimental-modules --max_old_space_size=8192 ./test/test.mjs\"",
-    "test": "node --experimental-modules --max_old_space_size=8192  ./test/test.mjs"
+    "dev": "nodemon -x \"node --max_old_space_size=8192 ./test/test.js\"",
+    "test": "node --experimental-modules --max_old_space_size=8192  ./test/test.js"
   },
   "dependencies": {},
   "devDependencies": {

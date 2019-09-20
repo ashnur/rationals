@@ -114,8 +114,10 @@ rat.width = width
 rat.compare = rcmp
 rat.compareAbs = compareAbs
 rat.Rational = Rational
+rat.fromNumber = fromNumber
+rat.fromString = fromString
 
-export default rat
+module.exports = rat
 
 const findDecimalSize = (x) => {
   let p = 0
@@ -123,7 +125,7 @@ const findDecimalSize = (x) => {
   return p
 }
 
-export function fromNumber(n, d = 1) {
+function fromNumber(n, d = 1) {
   if (typeof n !== 'number' || isNaN(n)) {
     throw new Error('invalid (non-number) numerator (note the name of the function please)' + typeof n)
   }
@@ -141,7 +143,7 @@ export function fromNumber(n, d = 1) {
   return rat(BigInt(numerator), BigInt(denominator))
 }
 
-export function fromString(n, d = 1) {
+function fromString(n, d = 1) {
   if (typeof n !== 'string') {
     throw new Error('invalid (non-string) numerator (note the name of the function please)' + typeof n)
   }

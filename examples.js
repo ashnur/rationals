@@ -1,5 +1,6 @@
-import rat, { fromNumber } from './index.mjs'
-const R = fromNumber
+const rat = require('./index.js')
+
+const R = rat.fromNumber
 
 // denominator of 1 is optional
 let o = rat(1n) === R(1) // true

@@ -1,7 +1,8 @@
-import fc from 'fast-check'
-import test from 'tape'
+const fc = require( 'fast-check')
+const test = require( 'tape')
 
-import rat, { fromString, fromNumber } from '../index'
+const rat = require('../index')
+const { fromString, fromNumber } = rat
 const R = rat
 
 const numRunsL = 500
