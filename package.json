@@ -6,12 +6,12 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon -x \"node --max_old_space_size=8192 ./test/test.js\"",
-    "test": "node --experimental-modules --max_old_space_size=8192  ./test/test.js"
+    "test": "node --max_old_space_size=8192  ./test/test.js"
   },
   "dependencies": {},
   "devDependencies": {
-    "fast-check": "^1.14.0",
-    "tape": "^4.10.1"
+    "fast-check": "^1.17.0",
+    "tape": "^4.11.0"
   },
   "repository": {
     "type": "git",
